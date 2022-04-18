@@ -21,6 +21,7 @@
     <modules>
         <module>pim-core-db</module>
         <module>pim-core-ig-db</module>
+        <module>pim-front</module>
     </modules>
     <dependencies>
         <dependency>
