@@ -1,0 +1,250 @@
+<div (click)="appMain.onConfigClick($event)" [ngClass]="{'layout-config-active': appMain.configActive}"
+     class="layout-config" id="layout-config">
+  <a (click)="onConfigButtonClick($event)" class="layout-config-button" id="layout-config-button"
+     style="cursor: pointer">
+    <i class="pi pi-cog"></i>
+  </a>
+  <button (click)="onConfigButtonClick($event)"
+          class="p-button-rounded p-button-danger p-button-text layout-config-close" icon="pi pi-times" pButton pRipple
+          type="button"></button>
+  <div class="layout-config-content">
+    <h6 class="mt-0">Component Scale</h6>
+    <div class="config-scale">
+      <button (click)="decrementScale()" [disabled]="scale === scales[0]" class="p-button-rounded p-button-text"
+              icon="pi pi-minus" pButton pRipple type="button"></button>
+      <i *ngFor="let item of scales" [ngClass]="{'scale-active': item === scale}" class="pi pi-circle-fill"></i>
+      <button (click)="incrementScale()" [disabled]="scale === scales[scales.length - 1]"
+              class="p-button-rounded p-button-text" icon="pi pi-plus" pButton pRipple type="button"></button>
+    </div>
+
+    <h6>Input Style</h6>
+    <div class="p-formgroup-inline">
+      <div class="field-radiobutton">
+        <p-radioButton (onClick)="onInputStyleChange()" [(ngModel)]="config.inputStyle" inputId="inputStyle1"
+                       name="inputStyle"
+                       value="outlined"></p-radioButton>
+        <label for="inputStyle1">Outlined</label>
+      </div>
+      <div class="field-radiobutton">
+        <p-radioButton (onClick)="onInputStyleChange()" [(ngModel)]="config.inputStyle" inputId="inputStyle2"
+                       name="inputStyle"
+                       value="filled"></p-radioButton>
+        <label for="inputStyle2">Filled</label>
+      </div>
+    </div>
+
+    <h6>Ripple Effect</h6>
+    <p-inputSwitch (onChange)="onRippleChange($event.checked)" [ngModel]="config.ripple"></p-inputSwitch>
+
+    <h6>Menu Type</h6>
+    <div class="p-formgroup-inline">
+      <div class="field-radiobutton">
+        <p-radioButton (onClick)="appMain.isStatic()" [(ngModel)]="app.menuMode" inputId="menuType1" name="menuType"
+                       value="static"></p-radioButton>
+        <label for="menuType1">Static</label>
+      </div>
+      <div class="field-radiobutton">
+        <p-radioButton (onClick)="appMain.isOverlay()" [(ngModel)]="app.menuMode" inputId="menuType2" name="menuType"
+                       value="overlay"></p-radioButton>
+        <label for="menuType2">Overlay</label>
+      </div>
+
+      <h6>Bootstrap</h6>
+      <div class="grid free-themes">
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('bootstrap4-light-blue', false)" class="p-link">
+            <img alt="Bootstrap Light Blue" src="assets/layout/images/themes/bootstrap4-light-blue.svg">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('bootstrap4-light-purple', false)" class="p-link">
+            <img alt="Bootstrap Light Purple" src="assets/layout/images/themes/bootstrap4-light-purple.svg">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('bootstrap4-dark-blue', true)" class="p-link">
+            <img alt="Bootstrap Dark Blue" src="assets/layout/images/themes/bootstrap4-dark-blue.svg">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('bootstrap4-dark-purple', true)" class="p-link">
+            <img alt="Bootstrap Dark Purple" src="assets/layout/images/themes/bootstrap4-dark-purple.svg">
+          </button>
+        </div>
+      </div>
+
+      <h6>Material Design</h6>
+      <div class="grid free-themes">
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('md-light-indigo', false)" class="p-link">
+            <img alt="Material Light Indigo" src="assets/layout/images/themes/md-light-indigo.svg">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('md-light-deeppurple', false)" class="p-link">
+            <img alt="Material Light DeepPurple" src="assets/layout/images/themes/md-light-deeppurple.svg">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('md-dark-indigo', true)" class="p-link">
+            <img alt="Material Dark Indigo" src="assets/layout/images/themes/md-dark-indigo.svg">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('md-dark-deeppurple', true)" class="p-link">
+            <img alt="Material Dark DeepPurple" src="assets/layout/images/themes/md-dark-deeppurple.svg">
+          </button>
+        </div>
+      </div>
+
+      <h6>Material Design Compact</h6>
+      <div class="grid free-themes">
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('mdc-light-indigo', false)" class="p-link">
+            <img alt="Material Light Indigo" src="assets/layout/images/themes/md-light-indigo.svg">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('mdc-light-deeppurple', false)" class="p-link">
+            <img alt="Material Light DeepPurple" src="assets/layout/images/themes/md-light-deeppurple.svg">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('mdc-dark-indigo', true)" class="p-link">
+            <img alt="Material Dark Indigo" src="assets/layout/images/themes/md-dark-indigo.svg">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('mdc-dark-deeppurple', true)" class="p-link">
+            <img alt="Material Dark DeepPurple" src="assets/layout/images/themes/md-dark-deeppurple.svg">
+          </button>
+        </div>
+      </div>
+
+      <h6>Tailwind</h6>
+      <div class="grid free-themes">
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('tailwind-light', false)" class="p-link">
+            <img alt="Tailwind Light" src="assets/layout/images/themes/tailwind-light.png">
+          </button>
+        </div>
+      </div>
+
+      <h6>Fluent UI</h6>
+      <div class="grid free-themes">
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('fluent-light', false)" class="p-link">
+            <img alt="Fluent Light" src="assets/layout/images/themes/fluent-light.png">
+          </button>
+        </div>
+      </div>
+
+      <h6>PrimeOne Design - 2022</h6>
+      <div class="grid free-themes">
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('lara-light-indigo', false)" class="p-link">
+            <img alt="Lara Light Indigo" src="assets/layout/images/themes/lara-light-indigo.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('lara-light-blue', false)" class="p-link">
+            <img alt="Lara Light Blue" src="assets/layout/images/themes/lara-light-blue.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('lara-light-purple', false)" class="p-link">
+            <img alt="Lara Light Purple" src="assets/layout/images/themes/lara-light-purple.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('lara-light-teal', false)" class="p-link">
+            <img alt="Lara Light Teal" src="assets/layout/images/themes/lara-light-teal.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('lara-dark-indigo', true)" class="p-link">
+            <img alt="Lara Dark Indigo" src="assets/layout/images/themes/lara-dark-indigo.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('lara-dark-blue', true)" class="p-link">
+            <img alt="Lara Dark Blue" src="assets/layout/images/themes/lara-dark-blue.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('lara-dark-purple', true)" class="p-link">
+            <img alt="Lara Dark Purple" src="assets/layout/images/themes/lara-dark-purple.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('lara-dark-teal', true)" class="p-link">
+            <img alt="Lara Dark Teal" src="assets/layout/images/themes/lara-dark-teal.png">
+          </button>
+        </div>
+      </div>
+
+      <h6>PrimeOne Design - 2021</h6>
+      <div class="grid free-themes">
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('saga-blue', false)" class="p-link">
+            <img alt="Saga Blue" src="assets/layout/images/themes/saga-blue.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('saga-green', false)" class="p-link">
+            <img alt="Saga Green" src="assets/layout/images/themes/saga-green.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('saga-orange', false)" class="p-link">
+            <img alt="Saga Orange" src="assets/layout/images/themes/saga-orange.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('saga-purple', false)" class="p-link">
+            <img alt="Saga Purple" src="assets/layout/images/themes/saga-purple.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('vela-blue', true)" class="p-link">
+            <img alt="Vela Blue" src="assets/layout/images/themes/vela-blue.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('vela-green', true)" class="p-link">
+            <img alt="Vela Green" src="assets/layout/images/themes/vela-green.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('vela-orange', true)" class="p-link">
+            <img alt="Vela Orange" src="assets/layout/images/themes/vela-orange.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('vela-purple', true)" class="p-link">
+            <img alt="Vela Purple" src="assets/layout/images/themes/vela-purple.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('arya-blue', true)" class="p-link">
+            <img alt="Arya Blue" src="assets/layout/images/themes/arya-blue.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('arya-green', true)" class="p-link">
+            <img alt="Arya Green" src="assets/layout/images/themes/arya-green.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('arya-orange', true)" class="p-link">
+            <img alt="Arya Orange" src="assets/layout/images/themes/arya-orange.png">
+          </button>
+        </div>
+        <div class="col-3 text-center">
+          <button (click)="changeTheme('arya-purple', true)" class="p-link">
+            <img alt="Arya Purple" src="assets/layout/images/themes/arya-purple.png">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

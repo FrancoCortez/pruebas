@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+@import "../node_modules/prismjs/themes/prism-coy.css";
+@import "assets/demo/flags/flags.css";
+@import "assets/demo/documentation.scss";
+@import "assets/sass/layout/_variables";
+@import "assets/sass/layout/_layout";
+@import "assets/sass/overrides/_overrides";
+
+:host ::ng-deep .p-password input {
+  width: 100%;
+  padding:1rem;
+}
+
+:host ::ng-deep .pi-eye{
+  transform:scale(1.6);
+  margin-right: 1rem;
+  color: var(--primary-color) !important;
+}
+
+:host ::ng-deep .pi-eye-slash{
+  transform:scale(1.6);
+  margin-right: 1rem;
+  color: var(--primary-color) !important;
+}

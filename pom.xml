@@ -22,6 +22,7 @@
         <module>pim-core-db</module>
         <module>pim-core-ig-db</module>
         <module>pim-front</module>
+        <module>auth</module>
     </modules>
     <dependencies>
         <dependency>

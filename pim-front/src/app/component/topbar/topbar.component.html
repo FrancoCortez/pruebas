@@ -1,0 +1,29 @@
+<div class="layout-topbar">
+  <a class="layout-topbar-logo" routerLink="">
+    <img alt="logo" src="assets/layout/images/{{appMain.config.dark ? 'logo-white' : 'logo-dark'}}.svg">
+    <span>El COOSOOO</span>
+  </a>
+
+  <a (click)="appMain.toggleMenu($event)" class="p-link layout-menu-button layout-topbar-button" href="#">
+    <i class="pi pi-bars"></i>
+  </a>
+
+  <a (click)="appMain.toggleTopMenu($event)" class="p-link layout-topbar-menu-button layout-topbar-button" href="#">
+    <i class="pi pi-ellipsis-v"></i>
+  </a>
+
+  <div [ngClass]="{'layout-topbar-menu-mobile-active':appMain.topMenuActive}" class="layout-topbar-menu">
+    <a class="p-link layout-topbar-button" href="#">
+      <i class="pi pi-calendar"></i>
+      <span>Calendar</span>
+    </a>
+    <a class="p-link layout-topbar-button" href="#">
+      <i class="pi pi-cog"></i>
+      <span>Settings</span>
+    </a>
+    <a class="p-link layout-topbar-button" href="#">
+      <i class="pi pi-user"></i>
+      <span>Profile</span>
+    </a>
+  </div>
+</div>
