@@ -1,6 +1,7 @@
-package cl.pim.auth.dto.auth;
+package cl.pim.auth.dto.userrolerelation;
 
-import cl.pim.auth.dto.role.RoleResourceDto;
+
+import cl.pim.auth.shared.enumes.BasicStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,19 +9,19 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Accessors(chain = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResourceDto {
+public class UserRoleRelationResourceDto {
+
     private String id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String username;
-    private Boolean enabled;
-    private LocalDateTime lastPasswordUpdate;
-    private List<RoleResourceDto> roles;
+    private BasicStatusEnum status;
+    private String roleId;
+    private String userId;
+
 }

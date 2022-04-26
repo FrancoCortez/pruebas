@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @Table(value = "user")
 @Getter
@@ -43,6 +44,9 @@ public class User implements UserDetails, Persistable<String> {
     private Boolean enabled;
 
     private LocalDateTime lastPasswordUpdate;
+
+    @Transient
+    private List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

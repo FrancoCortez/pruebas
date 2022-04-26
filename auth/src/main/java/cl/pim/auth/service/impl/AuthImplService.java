@@ -2,6 +2,7 @@ package cl.pim.auth.service.impl;
 
 import cl.pim.auth.dto.auth.LoginResourceDto;
 import cl.pim.auth.model.User;
+import cl.pim.auth.repository.RoleRepository;
 import cl.pim.auth.repository.UserRepository;
 import cl.pim.auth.service.AuthService;
 import cl.pim.auth.shared.enumes.BasicStatusEnum;
@@ -20,6 +21,7 @@ import java.util.UUID;
 public class AuthImplService implements AuthService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final JWTUtils jwtUtils;
     private final PBKDF2Encoder pbkdf2Encoder;
 
@@ -28,6 +30,7 @@ public class AuthImplService implements AuthService {
         user.setStatus(BasicStatusEnum.ENABLED);
         user.setPassword(this.pbkdf2Encoder.encode(user.getPassword()));
         user.setIsNew(true);
+        user.setEnabled(true);
         return this.userRepository.save(user);
     }
 
@@ -40,6 +43,14 @@ public class AuthImplService implements AuthService {
                     }
                     return user;
                 });
+    }
+
+    public Mono<User> findById(String userId) {
+        return this.userRepository.findById(userId)
+                .flatMap(user -> Mono.just(user)
+                        .zipWith(this.roleRepository.findAllByUserId(userId).collectList())
+                        .map(result -> result.getT1().setRoles(result.getT2()))
+                );
     }
 
 }

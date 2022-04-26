@@ -9,4 +9,6 @@ public interface AuthService {
     Mono<User> create(User user);
 
     Mono<User> login(LoginResourceDto item);
+
+    Mono<User> findById(String userId);
 }
