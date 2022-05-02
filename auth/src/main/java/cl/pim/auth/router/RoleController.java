@@ -53,4 +53,9 @@ public class RoleController {
         return this.roleHandler.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Mono<RoleResourceDto> findById(@PathVariable String id) {
+        return this.roleHandler.findById(id);
+    }
+
 }

@@ -30,6 +30,7 @@ public class RoleImplHandler implements RoleHandler {
     private final RoleMapper roleMapper;
 
     @Override
+    @Transactional
     public Mono<RoleResourceDto> create(NewRoleResourceDto item) {
         return this.roleService
                 .create(this.roleMapper.toModel(item))
@@ -47,12 +48,6 @@ public class RoleImplHandler implements RoleHandler {
     }
 
 
-    public Flux<RoleResourceDto> findAll() {
-        return this.roleService
-                .findAll()
-                .map(this.roleMapper::toResource);
-    }
-
     @Transactional
     public Mono<ResponseEntity<Void>> deleteById(String id) {
         return this.roleService.deleteById(id)
@@ -62,10 +57,24 @@ public class RoleImplHandler implements RoleHandler {
     }
 
     @Override
+    @Transactional
     public Mono<ResponseEntity<Void>> deleteMassiveByIds(List<String> ids) {
         return this.roleService.deleteMassiveIds(ids)
                 .then(this.userRoleRelationService.deleteMassiveRoleIds(ids))
                 .then(this.rolePermissionRelationService.deleteMassiveRoleIds(ids))
                 .map(empty -> noContent().build());
+    }
+
+    @Override
+    public Mono<RoleResourceDto> findById(String id) {
+        return this.roleService.findById(id)
+                .map(this.roleMapper::toResource);
+    }
+
+
+    public Flux<RoleResourceDto> findAll() {
+        return this.roleService
+                .findAll()
+                .map(this.roleMapper::toResource);
     }
 }

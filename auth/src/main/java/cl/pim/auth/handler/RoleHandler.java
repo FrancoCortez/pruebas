@@ -20,4 +20,6 @@ public interface RoleHandler {
     Mono<RoleResourceDto> update(String id, UpdateRoleResourceDto item);
 
     Mono<ResponseEntity<Void>> deleteMassiveByIds(List<String> ids);
+
+    Mono<RoleResourceDto> findById(String id);
 }

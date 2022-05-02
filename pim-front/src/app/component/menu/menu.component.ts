@@ -28,6 +28,11 @@ export class MenuComponent implements OnInit {
             label: 'Roles', icon: 'pi pi-fw pi-sitemap', items: [
               {label: 'Administracion', icon: 'pi pi-fw pi-table', routerLink: ['/home/role']}
             ]
+          },
+          {
+            label: 'Permisos', icon: 'pi pi-fw pi-sitemap', items: [
+              {label: 'Administracion', icon: 'pi pi-fw pi-table', routerLink: ['/home/permission']}
+            ]
           }
         ]
       }
