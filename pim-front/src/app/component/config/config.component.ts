@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppConfig} from "../../api/appconfig";
 import {Subscription} from "rxjs";
 import {AppComponent} from "../../app.component";
@@ -22,7 +22,8 @@ export class ConfigComponent implements OnInit {
   // @ts-ignore
   subscription: Subscription;
 
-  constructor(public app: AppComponent, public appMain: DashboardComponent, public configService: ConfigService, public primengConfig: PrimeNGConfig) { }
+  constructor(public app: AppComponent, public appMain: DashboardComponent, public configService: ConfigService, public primengConfig: PrimeNGConfig) {
+  }
 
   ngOnInit() {
     this.config = this.configService.config;
@@ -63,7 +64,7 @@ export class ConfigComponent implements OnInit {
     this.configService.updateConfig(this.config);
   }
 
-  changeTheme(theme:string, dark:boolean){
+  changeTheme(theme: string, dark: boolean) {
     let themeElement = document.getElementById('theme-css');
     // @ts-ignore
     themeElement.setAttribute('href', 'assets/theme/' + theme + '/theme.css');

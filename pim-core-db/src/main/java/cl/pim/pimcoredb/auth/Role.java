@@ -28,5 +28,6 @@ public class Role extends BaseCodeAndNameEntity {
     @Enumerated(EnumType.STRING)
     private BasicStatusEnum status;
 
+    @Column(name = "description", length = 200)
     private String description;
 }

@@ -4,11 +4,10 @@ import * as action from './actions';
 
 const featureReducer = createReducer(
   InitialState,
-  on(action.loginRequest, (state, {payload}) => ({
+  on(action.loginRequest, (state) => ({
     ...state,
     isLoading: true,
     isLoader: false,
-    login: payload,
     error: null,
   })),
   on(action.loginSuccess, (state) => ({
@@ -20,8 +19,7 @@ const featureReducer = createReducer(
     ...state,
     isLoading: false,
     isLoader: false,
-    error: payload,
-    login: null
+    error: payload
   })),
 )
 

@@ -1,20 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 
 @Injectable()
 export class MenuService {
 
-    private menuSource = new Subject<string>();
-    private resetSource = new Subject();
+  private menuSource = new Subject<string>();
+  menuSource$ = this.menuSource.asObservable();
+  private resetSource = new Subject();
+  resetSource$ = this.resetSource.asObservable();
 
-    menuSource$ = this.menuSource.asObservable();
-    resetSource$ = this.resetSource.asObservable();
+  onMenuStateChange(key: string) {
+    this.menuSource.next(key);
+  }
 
-    onMenuStateChange(key: string) {
-        this.menuSource.next(key);
-    }
-
-    reset() {
-       this.resetSource.next(true);
-    }
+  reset() {
+    this.resetSource.next(true);
+  }
 }

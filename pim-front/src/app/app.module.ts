@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {ButtonModule} from "primeng/button";
-import {RippleModule } from "primeng/ripple";
+import {RippleModule} from "primeng/ripple";
 import {InputTextModule} from "primeng/inputtext";
 import {CardModule} from "primeng/card";
 import {PagesModule} from "./pages/pages.module";
@@ -19,7 +19,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,15 +38,15 @@ import {ReactiveFormsModule} from "@angular/forms";
       name: 'NgRx Book Store DevTools',
       logOnly: true,
       features: {
-        pause: false, // start/pause recording of dispatched actions
-        lock: false, // lock/unlock dispatching actions and side effects
-        persist: false, // persist states on page reloading
-        export: false, // export history of actions in a file
-        import: false, // import history of actions from a file
-        jump: false, // jump back and forth (time travelling)
-        skip: false, // skip (cancel) actions
-        reorder: false, // drag and drop actions in the history list
-        dispatch: false, // dispatch custom actions or action creators
+        pause: true, // start/pause recording of dispatched actions
+        lock: true, // lock/unlock dispatching actions and side effects
+        persist: true, // persist states on page reloading
+        export: true, // export history of actions in a file
+        import: true, // import history of actions from a file
+        jump: true, // jump back and forth (time travelling)
+        skip: true, // skip (cancel) actions
+        reorder: true, // drag and drop actions in the history list
+        dispatch: true, // dispatch custom actions or action creators
         test: true // generate tests for the selected actions
       },
     })
@@ -54,4 +54,5 @@ import {ReactiveFormsModule} from "@angular/forms";
   providers: [ConfigService, MenuService, ProductService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

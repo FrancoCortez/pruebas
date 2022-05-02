@@ -1,6 +1,7 @@
 package cl.pim.auth.model;
 
 import cl.pim.auth.shared.enumes.BasicStatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,9 +26,11 @@ public class Role implements Persistable<String> {
     @Id
     private String id;
     @CreatedDate
+    @JsonIgnore
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @JsonIgnore
     private LocalDateTime updatedAt;
 
     private String name;
@@ -38,7 +41,9 @@ public class Role implements Persistable<String> {
 
     private String description;
     @Transient
-    private Boolean isNew;
+    @JsonIgnore
+    private Boolean isNew = false;
+
     @Override
     public boolean isNew() {
         return this.isNew || id == null;

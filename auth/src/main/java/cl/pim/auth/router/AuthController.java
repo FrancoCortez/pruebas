@@ -1,6 +1,7 @@
 package cl.pim.auth.router;
 
 import cl.pim.auth.dto.auth.LoginResourceDto;
+import cl.pim.auth.dto.auth.LoginResponseResourceDto;
 import cl.pim.auth.dto.auth.NewUserResourceDto;
 import cl.pim.auth.dto.auth.UserResourceDto;
 import cl.pim.auth.handler.AuthHandler;
@@ -23,14 +24,13 @@ public class AuthController {
 
     private final AuthHandler authHandler;
 
-
     @PostMapping
     public Mono<UserResourceDto> create(@Valid @RequestBody final NewUserResourceDto item) {
         return this.authHandler.create(item);
     }
 
     @PostMapping(value = "/login")
-    public Mono<?> login(@Valid @RequestBody final LoginResourceDto item) {
+    public Mono<LoginResponseResourceDto> login(@Valid @RequestBody final LoginResourceDto item) {
         return this.authHandler.login(item);
     }
 

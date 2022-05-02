@@ -15,11 +15,13 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Table(value = "user")
 @Getter
@@ -29,12 +31,15 @@ import java.util.List;
 @ToString
 public class User implements UserDetails, Persistable<String> {
     @Transient
-    private Boolean isNew;
+    @JsonIgnore
+    private Boolean isNew = false;
     @Id
     private String id;
     @CreatedDate
+    @JsonIgnore
     private LocalDateTime createdAt;
     @LastModifiedDate
+    @JsonIgnore
     private LocalDateTime updatedAt;
     private BasicStatusEnum status;
     private String username;
@@ -43,6 +48,7 @@ public class User implements UserDetails, Persistable<String> {
 
     private Boolean enabled;
 
+    @JsonIgnore
     private LocalDateTime lastPasswordUpdate;
 
     @Transient
@@ -50,7 +56,7 @@ public class User implements UserDetails, Persistable<String> {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.roles.stream().map(authority -> new SimpleGrantedAuthority(authority.getCode())).collect(Collectors.toList());
     }
 
     @Override

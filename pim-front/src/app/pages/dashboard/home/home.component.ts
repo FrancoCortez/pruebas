@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuItem} from "primeng/api";
 import {Product} from "../../../api/product";
 import {Subscription} from "rxjs";
 import {AppConfig} from "../../../api/appconfig";
 import {ConfigService} from "../../../services/app.config.service";
 import {ProductService} from "../../../services/productservice";
+import {Store} from "@ngrx/store";
+import {RootStoreState} from "../../../root-store";
 
 @Component({
   selector: 'app-home',
@@ -28,7 +30,8 @@ export class HomeComponent implements OnInit {
   // @ts-ignore
   config: AppConfig;
 
-  constructor(private productService: ProductService, public configService: ConfigService) {}
+  constructor(private productService: ProductService, public configService: ConfigService, private readonly store: Store<RootStoreState.AppState>) {
+  }
 
   ngOnInit() {
     this.config = this.configService.config;
@@ -89,7 +92,7 @@ export class HomeComponent implements OnInit {
             color: '#ebedef'
           },
           grid: {
-            color:  'rgba(160, 167, 181, .3)',
+            color: 'rgba(160, 167, 181, .3)',
           }
         },
         y: {
@@ -97,7 +100,7 @@ export class HomeComponent implements OnInit {
             color: '#ebedef'
           },
           grid: {
-            color:  'rgba(160, 167, 181, .3)',
+            color: 'rgba(160, 167, 181, .3)',
           }
         },
       }
@@ -119,7 +122,7 @@ export class HomeComponent implements OnInit {
             color: '#495057'
           },
           grid: {
-            color:  '#ebedef',
+            color: '#ebedef',
           }
         },
         y: {
@@ -127,7 +130,7 @@ export class HomeComponent implements OnInit {
             color: '#495057'
           },
           grid: {
-            color:  '#ebedef',
+            color: '#ebedef',
           }
         },
       }

@@ -34,5 +34,10 @@ public interface UserMapper {
     @Mapping(target = "roles", ignore = true)
     User toModel(NewUserResourceDto item);
 
-    LoginResponseResourceDto toLogin(User user);
+    default LoginResponseResourceDto toLogin(String token) {
+        return LoginResponseResourceDto.builder()
+                .accessToken(token)
+                .build();
+    }
+
 }

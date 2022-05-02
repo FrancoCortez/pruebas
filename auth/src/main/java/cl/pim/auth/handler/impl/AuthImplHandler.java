@@ -1,6 +1,7 @@
 package cl.pim.auth.handler.impl;
 
 import cl.pim.auth.dto.auth.LoginResourceDto;
+import cl.pim.auth.dto.auth.LoginResponseResourceDto;
 import cl.pim.auth.dto.auth.NewUserResourceDto;
 import cl.pim.auth.dto.auth.UserResourceDto;
 import cl.pim.auth.handler.AuthHandler;
@@ -38,7 +39,7 @@ public class AuthImplHandler implements AuthHandler {
                 );
     }
 
-    public Mono<?> login(LoginResourceDto item) {
+    public Mono<LoginResponseResourceDto> login(LoginResourceDto item) {
         return this.authService
                 .login(item)
                 .map(this.userMapper::toLogin);

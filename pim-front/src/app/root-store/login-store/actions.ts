@@ -1,5 +1,5 @@
 import {createAction, props} from "@ngrx/store";
 
-export const loginRequest =createAction('', props<{ payload: { username: string, password: string}}>());
-export const loginSuccess = createAction('');
-export const loginError = createAction('', props<{ payload: any}>())
+export const loginRequest = createAction('loginRequest', props<{ username: string, password: string }>());
+export const loginSuccess = createAction('loginSuccess', props<{ token: string }>());
+export const loginError = createAction('loginError', props<{ payload: any }>())

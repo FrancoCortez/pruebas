@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import {filter, Subscription} from "rxjs";
 import {DashboardComponent} from "../../pages/dashboard/dashboard/dashboard.component";
 import {NavigationEnd, Router} from "@angular/router";

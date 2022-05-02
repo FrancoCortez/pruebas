@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {DashboardComponent} from "../../pages/dashboard/dashboard/dashboard.component";
 
 @Component({
@@ -7,6 +7,7 @@ import {DashboardComponent} from "../../pages/dashboard/dashboard/dashboard.comp
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  constructor(public appMain: DashboardComponent) {}
+  constructor(public appMain: DashboardComponent) {
+  }
 
 }

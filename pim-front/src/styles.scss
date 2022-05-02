@@ -4,23 +4,24 @@
 @import "../node_modules/prismjs/themes/prism-coy.css";
 @import "assets/demo/flags/flags.css";
 @import "assets/demo/documentation.scss";
+@import "assets/demo/badges.scss";
 @import "assets/sass/layout/_variables";
 @import "assets/sass/layout/_layout";
 @import "assets/sass/overrides/_overrides";
 
 :host ::ng-deep .p-password input {
   width: 100%;
-  padding:1rem;
+  padding: 1rem;
 }
 
-:host ::ng-deep .pi-eye{
-  transform:scale(1.6);
+:host ::ng-deep .pi-eye {
+  transform: scale(1.6);
   margin-right: 1rem;
   color: var(--primary-color) !important;
 }
 
-:host ::ng-deep .pi-eye-slash{
-  transform:scale(1.6);
+:host ::ng-deep .pi-eye-slash {
+  transform: scale(1.6);
   margin-right: 1rem;
   color: var(--primary-color) !important;
 }

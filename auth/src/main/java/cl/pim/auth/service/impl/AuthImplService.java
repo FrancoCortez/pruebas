@@ -34,14 +34,17 @@ public class AuthImplService implements AuthService {
         return this.userRepository.save(user);
     }
 
-    public Mono<User> login(LoginResourceDto item) {
+    public Mono<String> login(LoginResourceDto item) {
         return this.userRepository.findByUsername(item.getUsername())
+                .flatMap(user -> Mono.just(user)
+                        .zipWith(this.roleRepository.findAllByUserId(user.getId()).collectList())
+                        .map(result -> result.getT1().setRoles(result.getT2()))
+                )
                 .map(user -> {
                     if (this.pbkdf2Encoder.encode(item.getPassword()).equals(user.getPassword())) {
-                        String token = jwtUtils.generateToken(user);
-                        log.info(token);
+                        return jwtUtils.generateToken(user);
                     }
-                    return user;
+                    return "";
                 });
     }
 

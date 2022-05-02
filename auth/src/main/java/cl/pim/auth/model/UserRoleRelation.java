@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 public class UserRoleRelation implements Persistable<String> {
-
     @Id
     private String id;
     @CreatedDate

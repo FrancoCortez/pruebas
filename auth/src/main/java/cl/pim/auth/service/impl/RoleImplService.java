@@ -4,6 +4,7 @@ import cl.pim.auth.model.Role;
 import cl.pim.auth.repository.RoleRepository;
 import cl.pim.auth.service.RoleService;
 import cl.pim.auth.shared.enumes.BasicStatusEnum;
+import cl.pim.auth.shared.exceptions.RoleNotFoundException;
 import com.google.common.base.CaseFormat;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -28,7 +30,41 @@ public class RoleImplService implements RoleService {
         return this.roleRepository.save(item);
     }
 
+    public Mono<Role> update(Role entity) {
+        if (entity.getId() == null) {
+            return Mono.error(new IllegalArgumentException("When updating an item, the id must be provided"));
+        }
+        entity.setIsNew(false);
+        entity.setCode(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, entity.getName().toUpperCase().replaceAll(" ", "_")));
+        return this.verifyExistence(entity.getId())
+                .then(roleRepository.save(entity));
+    }
+
+    public Mono<Void> deleteById(String id) {
+        return this.roleRepository.deleteById(id);
+    }
+
+    public Mono<Void> deleteMassiveIds(List<String> ids) {
+        return this.roleRepository.deleteAllById(ids);
+    }
+
     public Flux<Role> findAll() {
         return this.roleRepository.findAll();
     }
+
+    public Mono<Role> findById(String id) {
+        return this.roleRepository.findById(id);
+    }
+
+    private Mono<Boolean> verifyExistence(String id) {
+        return this.roleRepository.existsById(id).handle((exists, sink) -> {
+            if (Boolean.FALSE.equals(exists)) {
+                sink.error(new RoleNotFoundException(id));
+            } else {
+                sink.next(exists);
+            }
+        });
+    }
+
+
 }
