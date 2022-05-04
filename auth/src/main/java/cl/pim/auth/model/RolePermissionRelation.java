@@ -17,7 +17,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
-@Table(value = "user_permission_relation")
+@Table(value = "role_permission_relation")
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -38,9 +38,13 @@ public class RolePermissionRelation implements Persistable<String> {
     private BasicStatusEnum status;
     @Transient
     private Boolean isNew;
-
     private String roleId;
-    private String userId;
+    private String permissionId;
+
+    @Transient
+    private Role role;
+    @Transient
+    private Permission permission;
 
     @Override
     public boolean isNew() {

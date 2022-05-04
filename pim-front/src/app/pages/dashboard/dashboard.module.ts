@@ -23,6 +23,8 @@ import {RippleModule} from "primeng/ripple";
 import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {TooltipModule} from "primeng/tooltip";
+import {PermissionComponent} from './permission/permission.component';
+import {PickListModule} from "primeng/picklist";
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import {TooltipModule} from "primeng/tooltip";
     HomeComponent,
     DashboardComponent,
     RoleComponent,
+    PermissionComponent,
   ],
   imports: [
     CommonModule,
@@ -52,7 +55,8 @@ import {TooltipModule} from "primeng/tooltip";
     RippleModule,
     InputTextModule,
     InputTextareaModule,
-    TooltipModule
+    TooltipModule,
+    PickListModule
   ],
   exports: [
     HomeComponent,

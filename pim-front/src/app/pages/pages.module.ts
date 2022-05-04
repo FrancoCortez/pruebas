@@ -10,13 +10,11 @@ import {CheckboxModule} from "primeng/checkbox";
 import {FormsModule} from "@angular/forms";
 import {BlockUIModule} from "primeng/blockui";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
-import {PermissionComponent} from './permission/permission.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    PermissionComponent,
   ],
   imports: [
     CommonModule,

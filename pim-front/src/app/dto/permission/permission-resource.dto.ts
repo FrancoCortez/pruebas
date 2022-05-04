@@ -1,4 +1,4 @@
-export interface RoleResourceDto {
+export class PermissionResourceDto {
   id?: string;
   createdAt?: Date;
   updatedAt?: Date;

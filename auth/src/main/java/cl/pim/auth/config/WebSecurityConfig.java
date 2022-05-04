@@ -33,6 +33,8 @@ public class WebSecurityConfig {
                 .pathMatchers("/register").permitAll()
                 .pathMatchers("/auth/login").permitAll()
                 .pathMatchers("/roles/**").permitAll()
+                .pathMatchers("/permission/**").permitAll()
+                .pathMatchers("/role-permission-relation/**").permitAll()
                 .anyExchange().authenticated()
                 .and().build();
 

@@ -63,6 +63,7 @@
               <p-sortIcon field="status"></p-sortIcon>
             </th>
             <th></th>
+            <th></th>
           </tr>
         </ng-template>
         <ng-template let-role pTemplate="body">
@@ -96,6 +97,14 @@
                         pRipple></button>
                 <button (click)="deleteRole(role)" class="p-button-rounded p-button-warning" icon="pi pi-trash" pButton
                         pRipple></button>
+              </div>
+            </td>
+            <td>
+              <div class="flex">
+                <button (click)="openPermissionDialog(role)" class="p-button-rounded p-button-success mr-2"
+                        pButton
+                        pRipple>Permisos
+                </button>
               </div>
             </td>
           </tr>
@@ -169,6 +178,35 @@
                 pRipple></button>
         <button (click)="confirmDeleteSelected()" class="p-button-text" icon="pi pi-check" label="Si" pButton
                 pRipple></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="permissionDialog" [modal]="true" [style]="{width:'800px'}" appendTo="body"
+              header="Agregar Permisos">
+      <ng-template pTemplate="content">
+        <p-pickList [dragdrop]="true" [responsive]="true" [sourceStyle]="{'height':'30rem'}"
+                    [source]="permissionNotRoles" [targetStyle]="{'height':'30rem'}"
+                    [target]="permissionInRoles" filterBy="name" sourceFilterPlaceholder="Search by name"
+                    sourceHeader="Available"
+                    targetFilterPlaceholder="Search by name" targetHeader="Selected">
+          <ng-template let-product pTemplate="item">
+            <div class="product-item">
+              <div class="product-list-detail">
+                <h5 class="mb-2">{{product.name}}</h5>
+              </div>
+            </div>
+          </ng-template>
+        </p-pickList>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <button (click)="permissionDialog = false"
+                [loading]="(isLoadingCreate | async) || (isLoadingUpdate | async)"
+                class="p-button-text" icon="pi pi-times" label="Cancelar"
+                pButton pRipple></button>
+        <button (click)="attachPermission()"
+                [loading]="(isLoadingCreate | async) || (isLoadingUpdate | async)" class="p-button-text"
+                icon="pi pi-check" label="Guardar"
+                pButton pRipple></button>
       </ng-template>
     </p-dialog>
   </div>

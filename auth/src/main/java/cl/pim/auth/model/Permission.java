@@ -16,7 +16,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
-@Table(value = "role")
+@Table(value = "permission")
 @Getter
 @Setter
 @Accessors(chain = true)

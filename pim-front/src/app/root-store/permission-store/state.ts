@@ -1,4 +1,4 @@
-import {RoleResourceDto} from "../../dto/roles/role-resource.dto";
+import {PermissionResourceDto} from "../../dto/permission/permission-resource.dto";
 
 export interface State {
   isLoadingData: boolean;
@@ -6,9 +6,12 @@ export interface State {
   isLoadingDelete: boolean;
   isLoadingUpdate: boolean;
   isLoadingMassiveDeleted: boolean;
+  isLoadingAddPermissionToRol: boolean;
   isLoader: boolean;
   error?: any
-  roles: RoleResourceDto[]
+  permissions: PermissionResourceDto[],
+  permissionInRoles: PermissionResourceDto[],
+  permissionNotRole: PermissionResourceDto[],
 }
 
 
@@ -19,5 +22,8 @@ export const InitialState: State = {
   isLoadingDelete: false,
   isLoadingUpdate: false,
   isLoadingMassiveDeleted: false,
-  roles: [],
+  isLoadingAddPermissionToRol: false,
+  permissions: [],
+  permissionInRoles: [],
+  permissionNotRole: [],
 }

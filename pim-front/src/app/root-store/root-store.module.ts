@@ -5,6 +5,8 @@ import {EffectsModule} from "@ngrx/effects";
 import {ConfigModule} from "./config/config.module";
 import {LoginStoreModule} from "./login-store";
 import {RoleStoreModule} from "./role-store";
+import {PermissionStoreModule} from "./permission-store";
+import {RolePermissionRelationStoreModule} from "./role-permission-relation-store";
 
 
 @NgModule({
@@ -14,6 +16,8 @@ import {RoleStoreModule} from "./role-store";
     ConfigModule,
     LoginStoreModule,
     RoleStoreModule,
+    PermissionStoreModule,
+    RolePermissionRelationStoreModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
   ]

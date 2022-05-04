@@ -4,7 +4,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {HomeComponent} from "./pages/dashboard/home/home.component";
 import {DashboardComponent} from "./pages/dashboard/dashboard/dashboard.component";
 import {RoleComponent} from "./pages/dashboard/role/role.component";
-import {PermissionComponent} from "./pages/permission/permission.component";
+import {PermissionComponent} from "./pages/dashboard/permission/permission.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
