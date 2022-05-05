@@ -44,7 +44,7 @@ public class RolePermissionRelationImplService implements RolePermissionRelation
 
     @Override
     public Flux<RolePermissionRelation> addPermissionToRole(Collection<RolePermissionRelation> item) {
-        return this.deleteByRoleId(item.stream().findAny().get().getRoleId())
+        return this.deleteByRoleId(item.stream().findFirst().get().getRoleId())
                 .thenMany(this.rolePermissionRelationRepository.saveAll(
                         item.stream()
                                 .filter(f -> f.getPermissionId() != null && !f.getPermissionId().equals(""))
