@@ -20,6 +20,21 @@ public class WebSecurityConfig {
         this.securityContextRepository = securityContextRepository;
     }
 
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+            // other public endpoints of your API may be appended to this array
+    };
+
     @Bean
     public SecurityWebFilterChain securitygWebFilterChain(final ServerHttpSecurity http) {
         return http.csrf().disable()
@@ -35,6 +50,7 @@ public class WebSecurityConfig {
                 .pathMatchers("/roles/**").permitAll()
                 .pathMatchers("/permission/**").permitAll()
                 .pathMatchers("/role-permission-relation/**").permitAll()
+                .pathMatchers(AUTH_WHITELIST).permitAll()
                 .anyExchange().authenticated()
                 .and().build();
 

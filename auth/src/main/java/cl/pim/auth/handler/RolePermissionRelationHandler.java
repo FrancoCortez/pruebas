@@ -1,16 +1,14 @@
 package cl.pim.auth.handler;
 
-import cl.pim.auth.dto.rolepermissionrelation.AddRolePermissionRelationResourceDto;
-import cl.pim.auth.dto.rolepermissionrelation.NewRolePermissionRelationResourceDto;
-import cl.pim.auth.dto.rolepermissionrelation.RolePermissionRelationResourceDto;
-import reactor.core.publisher.Flux;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 public interface RolePermissionRelationHandler {
-    Mono<RolePermissionRelationResourceDto> create(NewRolePermissionRelationResourceDto item);
+    @NotNull Mono<ServerResponse> create(final ServerRequest request);
 
-    Flux<RolePermissionRelationResourceDto> findAll();
+    @NotNull Mono<ServerResponse> addPermissionToRole(final ServerRequest request);
 
-
-    Flux<RolePermissionRelationResourceDto> addPermissionToRole(AddRolePermissionRelationResourceDto item);
+    @NotNull Mono<ServerResponse> findAll(final ServerRequest request);
 }

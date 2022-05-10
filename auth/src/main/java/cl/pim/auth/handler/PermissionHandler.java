@@ -1,28 +1,25 @@
 package cl.pim.auth.handler;
 
-import cl.pim.auth.dto.permission.NewPermissionResourceDto;
-import cl.pim.auth.dto.permission.PermissionResourceDto;
-import cl.pim.auth.dto.permission.UpdatePermissionResourceDto;
-import org.springframework.http.ResponseEntity;
-import reactor.core.publisher.Flux;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
 
 public interface PermissionHandler {
-    Mono<PermissionResourceDto> create(NewPermissionResourceDto item);
+    @NotNull Mono<ServerResponse> create(final ServerRequest request);
 
-    Mono<PermissionResourceDto> update(String id, UpdatePermissionResourceDto item);
+    @NotNull Mono<ServerResponse> update(final ServerRequest request);
 
-    Mono<ResponseEntity<Void>> deleteById(String id);
+    @NotNull Mono<ServerResponse> deleteById(final ServerRequest request);
 
-    Mono<ResponseEntity<Void>> deleteMassiveByIds(List<String> ids);
+    @NotNull Mono<ServerResponse> deleteMassiveByIds(final ServerRequest request);
 
-    Flux<PermissionResourceDto> findAll();
+    @NotNull Mono<ServerResponse> findAll(final ServerRequest request);
 
-    Mono<PermissionResourceDto> findById(String id);
+    @NotNull Mono<ServerResponse> findById(final ServerRequest request);
 
-    Flux<PermissionResourceDto> findByRoleId(String roleId);
+    @NotNull Mono<ServerResponse> findByRoleId(final ServerRequest request);
 
-    Flux<PermissionResourceDto> findPermissionNotByRoleId(String roleId);
+    @NotNull Mono<ServerResponse> findPermissionNotByRoleId(final ServerRequest request);
 }

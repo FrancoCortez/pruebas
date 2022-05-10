@@ -1,16 +1,18 @@
 package cl.pim.auth.handler;
 
-import cl.pim.auth.dto.auth.LoginResourceDto;
-import cl.pim.auth.dto.auth.LoginResponseResourceDto;
-import cl.pim.auth.dto.auth.NewUserResourceDto;
-import cl.pim.auth.dto.auth.UserResourceDto;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 public interface AuthHandler {
 
-    Mono<UserResourceDto> create(NewUserResourceDto item);
+    @NotNull Mono<ServerResponse> create(final ServerRequest request);
 
-    Mono<LoginResponseResourceDto> login(LoginResourceDto item);
+    @NotNull Mono<ServerResponse> login(final ServerRequest request);
 
-    Mono<UserResourceDto> findById(String id);
+    @NotNull Mono<ServerResponse> findById(final ServerRequest request);
+
+    @NotNull Mono<ServerResponse> findAll(ServerRequest serverRequest);
+
 }

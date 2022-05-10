@@ -26,26 +26,18 @@ public class FamilyGroupEntity implements Persistable<String> {
 
     @Id
     private String id;
-
-    @Transient
-    private Boolean isNew;
-
     @CreatedDate
     private LocalDateTime createdAt;
-
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
     private String name;
-
     private String code;
-
     private BasicStatusEnum status;
-
     private Boolean visible;
-
     @Transient
     private List<FamilyEntity> familyEntities;
+    @Transient
+    private Boolean isNew;
 
     @Override
     public boolean isNew() {

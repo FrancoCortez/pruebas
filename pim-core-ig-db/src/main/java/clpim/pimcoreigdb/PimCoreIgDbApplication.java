@@ -13,5 +13,4 @@ public class PimCoreIgDbApplication {
     public static void main(String[] args) {
         SpringApplication.run(PimCoreIgDbApplication.class, args);
     }
-
 }

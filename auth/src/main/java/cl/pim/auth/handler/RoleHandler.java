@@ -1,25 +1,21 @@
 package cl.pim.auth.handler;
 
-import cl.pim.auth.dto.role.NewRoleResourceDto;
-import cl.pim.auth.dto.role.RoleResourceDto;
-import cl.pim.auth.dto.role.UpdateRoleResourceDto;
-import org.springframework.http.ResponseEntity;
-import reactor.core.publisher.Flux;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 public interface RoleHandler {
 
-    Mono<RoleResourceDto> create(NewRoleResourceDto item);
+    @NotNull Mono<ServerResponse> create(final ServerRequest request);
 
-    Flux<RoleResourceDto> findAll();
+    @NotNull Mono<ServerResponse> update(final ServerRequest request);
 
-    Mono<ResponseEntity<Void>> deleteById(String id);
+    @NotNull Mono<ServerResponse> deleteById(final ServerRequest request);
 
-    Mono<RoleResourceDto> update(String id, UpdateRoleResourceDto item);
+    @NotNull Mono<ServerResponse> deleteMassiveByIds(final ServerRequest request);
 
-    Mono<ResponseEntity<Void>> deleteMassiveByIds(List<String> ids);
+    @NotNull Mono<ServerResponse> findAll(final ServerRequest request);
 
-    Mono<RoleResourceDto> findById(String id);
+    @NotNull Mono<ServerResponse> findById(final ServerRequest request);
 }

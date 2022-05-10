@@ -11,6 +11,7 @@ import cl.pim.auth.utils.PBKDF2Encoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -53,6 +54,16 @@ public class AuthImplService implements AuthService {
                 .flatMap(user -> Mono.just(user)
                         .zipWith(this.roleRepository.findAllByUserId(userId).collectList())
                         .map(result -> result.getT1().setRoles(result.getT2()))
+                );
+    }
+
+    @Override
+    public Flux<User> findAll() {
+        return this.userRepository.findAll()
+                .flatMap(user -> Mono.just(user)
+                        .zipWith(this.roleRepository.findAllByUserId(user.getId()).collectList())
+                        .map(result -> result.getT1().setRoles(result.getT2()))
+
                 );
     }
 

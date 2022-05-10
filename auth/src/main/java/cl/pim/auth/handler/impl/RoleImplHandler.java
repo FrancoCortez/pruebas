@@ -1,5 +1,6 @@
 package cl.pim.auth.handler.impl;
 
+import cl.pim.auth.dto.role.MassiveDeletedRoleResourceDto;
 import cl.pim.auth.dto.role.NewRoleResourceDto;
 import cl.pim.auth.dto.role.RoleResourceDto;
 import cl.pim.auth.dto.role.UpdateRoleResourceDto;
@@ -8,17 +9,15 @@ import cl.pim.auth.mapper.RoleMapper;
 import cl.pim.auth.service.RolePermissionRelationService;
 import cl.pim.auth.service.RoleService;
 import cl.pim.auth.service.UserRoleRelationService;
+import cl.pim.auth.shared.validation.ValidateObjectHandlerConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import reactor.core.publisher.Flux;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
-
-import static org.springframework.http.ResponseEntity.noContent;
 
 @Component
 @RequiredArgsConstructor
@@ -28,53 +27,72 @@ public class RoleImplHandler implements RoleHandler {
     private final UserRoleRelationService userRoleRelationService;
     private final RolePermissionRelationService rolePermissionRelationService;
     private final RoleMapper roleMapper;
+    private final ValidateObjectHandlerConfig validateObjectHandlerConfig;
 
-    @Override
-    @Transactional
-    public Mono<RoleResourceDto> create(NewRoleResourceDto item) {
-        return this.roleService
-                .create(this.roleMapper.toModel(item))
-                .map(this.roleMapper::toResource);
+//    @Override
+//    @Transactional
+//    public Mono<RoleResourceDto> create(NewRoleResourceDto item) {
+//        return this.roleService
+//                .create(this.roleMapper.toModel(item))
+//                .map(this.roleMapper::toResource);
+//    }
+
+    public @NotNull Mono<ServerResponse> create(final ServerRequest request) {
+        return this.validateObjectHandlerConfig.requireValidBody(body ->
+                        ServerResponse.ok().body(
+                                this.roleService.create(this.roleMapper.toModel(body.toFuture().join())).map(this.roleMapper::toResource),
+                                RoleResourceDto.class
+                        )
+                , request, NewRoleResourceDto.class);
     }
 
-
-    @Override
     @Transactional
-    public Mono<RoleResourceDto> update(String id, UpdateRoleResourceDto item) {
-        return this.roleService.findById(id)
-                .map(role -> this.roleMapper.toUpdate(item, role))
-                .flatMap(this.roleService::update)
-                .map(this.roleMapper::toResource);
+    public @NotNull Mono<ServerResponse> update(final ServerRequest request) {
+        String id = request.pathVariable("id");
+        return this.validateObjectHandlerConfig.requireValidBody(body ->
+                        ServerResponse.ok().body(
+                                this.roleService.findById(id)
+                                        .map(role -> this.roleMapper.toUpdate(body.toFuture().join(), role))
+                                        .flatMap(this.roleService::update)
+                                        .map(this.roleMapper::toResource)
+                                , RoleResourceDto.class
+                        )
+                , request, UpdateRoleResourceDto.class);
     }
 
-
     @Transactional
-    public Mono<ResponseEntity<Void>> deleteById(String id) {
+    public @NotNull Mono<ServerResponse> deleteById(final ServerRequest request) {
+        String id = request.pathVariable("id");
         return this.roleService.deleteById(id)
                 .then(this.userRoleRelationService.deleteByRoleId(id))
                 .then(this.rolePermissionRelationService.deleteByRoleId(id))
-                .map(empty -> noContent().build());
+                .flatMap(f -> ServerResponse.noContent().build());
     }
 
-    @Override
     @Transactional
-    public Mono<ResponseEntity<Void>> deleteMassiveByIds(List<String> ids) {
-        return this.roleService.deleteMassiveIds(ids)
-                .then(this.userRoleRelationService.deleteMassiveRoleIds(ids))
-                .then(this.rolePermissionRelationService.deleteMassiveRoleIds(ids))
-                .map(empty -> noContent().build());
+    public @NotNull Mono<ServerResponse> deleteMassiveByIds(final ServerRequest request) {
+        return this.validateObjectHandlerConfig.requireValidBody(body ->
+                        this.roleService.deleteMassiveIds(body.toFuture().join().getIds())
+                                .then(this.userRoleRelationService.deleteMassiveRoleIds(body.toFuture().join().getIds()))
+                                .then(this.rolePermissionRelationService.deleteMassiveRoleIds(body.toFuture().join().getIds()))
+                                .flatMap(f -> ServerResponse.noContent().build())
+                , request, MassiveDeletedRoleResourceDto.class);
     }
 
-    @Override
-    public Mono<RoleResourceDto> findById(String id) {
-        return this.roleService.findById(id)
-                .map(this.roleMapper::toResource);
+    public @NotNull Mono<ServerResponse> findById(final ServerRequest request) {
+        String id = request.pathVariable("id");
+        return ServerResponse.ok().body(
+                this.roleService.findById(id)
+                        .map(this.roleMapper::toResource)
+                , RoleResourceDto.class
+        );
     }
 
-
-    public Flux<RoleResourceDto> findAll() {
-        return this.roleService
-                .findAll()
-                .map(this.roleMapper::toResource);
+    public @NotNull Mono<ServerResponse> findAll(final ServerRequest request) {
+        return ServerResponse.ok().body(
+                this.roleService.findAll()
+                        .map(this.roleMapper::toResource)
+                , RoleResourceDto.class
+        );
     }
 }
