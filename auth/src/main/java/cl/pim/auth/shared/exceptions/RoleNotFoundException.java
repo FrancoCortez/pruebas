@@ -1,10 +1,12 @@
 package cl.pim.auth.shared.exceptions;
 
 
-public class RoleNotFoundException extends NotFoundException {
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+public class RoleNotFoundException extends NotFoundException {
     public RoleNotFoundException(String id) {
-        super(String.format("Item [%d] is not found", id));
+        super(String.format("Item [%s] is not found", id));
     }
 
 }

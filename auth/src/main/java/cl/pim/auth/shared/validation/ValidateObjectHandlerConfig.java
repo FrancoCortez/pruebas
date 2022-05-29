@@ -1,11 +1,11 @@
 package cl.pim.auth.shared.validation;
 
+import cl.pim.auth.shared.exceptions.ValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.ConstraintViolation;
@@ -36,7 +36,8 @@ public class ValidateObjectHandlerConfig {
                                         .field(row.getPropertyPath().toString())
                                         .violation(row.getMessage())
                                         .build()));
-                                return ServerResponse.badRequest().body(Flux.fromIterable(errorResponse), ViolationErrorResponseDto.class);
+                                // return ServerResponse.badRequest().body(Flux.fromIterable(errorResponse), ViolationErrorResponseDto.class);
+                                return Mono.error(new ValidationException(errorResponse.toString()));
                             }
                         }
                 );

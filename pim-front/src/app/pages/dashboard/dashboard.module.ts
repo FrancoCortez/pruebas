@@ -25,6 +25,7 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {TooltipModule} from "primeng/tooltip";
 import {PermissionComponent} from './permission/permission.component';
 import {PickListModule} from "primeng/picklist";
+import {AccordionModule} from "primeng/accordion";
 
 
 @NgModule({
@@ -46,17 +47,18 @@ import {PickListModule} from "primeng/picklist";
     ToastModule,
     ToolbarModule,
     FileUploadModule,
-    RatingModule,
-    DialogModule,
-    DropdownModule,
-    RadioButtonModule,
-    FormsModule,
-    InputNumberModule,
-    RippleModule,
-    InputTextModule,
-    InputTextareaModule,
-    TooltipModule,
-    PickListModule
+      RatingModule,
+      DialogModule,
+      DropdownModule,
+      RadioButtonModule,
+      FormsModule,
+      InputNumberModule,
+      RippleModule,
+      InputTextModule,
+      InputTextareaModule,
+      TooltipModule,
+      PickListModule,
+      AccordionModule
   ],
   exports: [
     HomeComponent,

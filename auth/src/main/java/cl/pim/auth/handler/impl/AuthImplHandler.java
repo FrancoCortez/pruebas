@@ -37,7 +37,7 @@ public class AuthImplHandler implements AuthHandler {
                                 .create(this.userMapper.toModel(body.toFuture().join()))
                                 .flatMap(user ->
                                         this.userRoleRelationService
-                                                .create(this.userRoleRelationMapper.toModel(user, body.toFuture().join().getRoles()))
+                                                .createMassive(this.userRoleRelationMapper.toModelList(user, body.toFuture().join().getRoles()))
                                                 .collectList()
                                                 .then(this.authService.findById(user.getId()))
                                                 .flatMap(f -> ServerResponse.ok().body(Mono.just(this.userMapper.toResource(f)), UserResourceDto.class))

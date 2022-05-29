@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface UserRoleRelationRepository extends ReactiveCrudRepository<UserRoleRelation, String> {
-
     Mono<Void> deleteByRoleId(String roleId);
 
     @Query("delete from user_role_relation where role_id in (:idsRoles)")

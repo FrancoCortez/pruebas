@@ -26,7 +26,7 @@ public interface FamilyGroupMapper {
             return null;
         }
         List<FamilyResourceDto> familyResourceDtos = new java.util.ArrayList<>(List.of());
-        if (f.getFamilyEntities().size() > 0) {
+        if (!f.getFamilyEntities().isEmpty()) {
             f.getFamilyEntities().forEach(ff -> familyResourceDtos.add(familyMapper.toResource(ff)));
         }
         return FamilyGroupResourceDto.builder()

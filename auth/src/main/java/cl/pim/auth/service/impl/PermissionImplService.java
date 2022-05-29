@@ -27,7 +27,6 @@ public class PermissionImplService implements PermissionService {
         item.setStatus(BasicStatusEnum.ENABLED);
         item.setIsNew(true);
         item.setCode(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, item.getName().toUpperCase().replaceAll(" ", "_")));
-        log.info("llegue");
         return this.permissionRepository.save(item);
     }
 

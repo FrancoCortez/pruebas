@@ -5,7 +5,6 @@ import cl.pim.auth.dto.rolepermissionrelation.NewRolePermissionRelationResourceD
 import cl.pim.auth.dto.rolepermissionrelation.RolePermissionRelationResourceDto;
 import cl.pim.auth.model.RolePermissionRelation;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.Collection;
@@ -28,11 +27,12 @@ public interface RolePermissionRelationMapper {
                 .build();
     }
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "status", ignore = true)
-    RolePermissionRelation toModel(NewRolePermissionRelationResourceDto item);
+    default RolePermissionRelation toModel(NewRolePermissionRelationResourceDto item) {
+        return RolePermissionRelation.builder()
+                .roleId(item.getIdRole())
+                .permissionId(item.getIdPermission())
+                .build();
+    }
 
     default Collection<RolePermissionRelation> addPermissionToRole(AddRolePermissionRelationResourceDto item) {
         if (item.getIdPermissions().size() > 0) {

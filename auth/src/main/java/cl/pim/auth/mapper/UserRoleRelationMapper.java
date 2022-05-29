@@ -1,5 +1,6 @@
 package cl.pim.auth.mapper;
 
+import cl.pim.auth.dto.userrolerelation.NewUserRoleRelationResourceDto;
 import cl.pim.auth.dto.userrolerelation.UserRoleRelationResourceDto;
 import cl.pim.auth.model.User;
 import cl.pim.auth.model.UserRoleRelation;
@@ -13,7 +14,14 @@ public interface UserRoleRelationMapper {
 
     UserRoleRelationResourceDto toResource(UserRoleRelation item);
 
-    default Collection<UserRoleRelation> toModel(User item, Collection<String> roleId) {
+    default UserRoleRelation toModel(NewUserRoleRelationResourceDto item) {
+        return UserRoleRelation.builder()
+                .userId(item.getUserId())
+                .roleId(item.getRoleId())
+                .build();
+    }
+
+    default Collection<UserRoleRelation> toModelList(User item, Collection<String> roleId) {
         return roleId.stream()
                 .map(role -> UserRoleRelation.builder()
                         .roleId(role)

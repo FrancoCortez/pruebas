@@ -1,11 +1,9 @@
 package cl.pim.auth.shared.exceptions;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public abstract class NotFoundException extends RuntimeException {
+public abstract class NotFoundException extends GlobalException {
     NotFoundException(String message) {
-        super(message);
+        super(HttpStatus.NOT_FOUND, message);
     }
 }

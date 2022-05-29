@@ -28,7 +28,11 @@ import {
   styleUrls: ['./role.component.scss']
 })
 export class RoleComponent implements OnInit {
+  city: string = "";
+  city1: string = "";
+  city2: string = "";
 
+  selectedCategory: any = null;
   roleDialog: boolean = false;
   deleteRoleDialog: boolean = false;
   deleteRolesDialog: boolean = false;

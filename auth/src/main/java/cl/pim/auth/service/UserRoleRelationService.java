@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface UserRoleRelationService {
 
-    Flux<UserRoleRelation> create(Collection<UserRoleRelation> item);
+    Mono<UserRoleRelation> create(UserRoleRelation item);
+
+    Flux<UserRoleRelation> createMassive(Collection<UserRoleRelation> item);
 
     Mono<Void> deleteByRoleId(String id);
 

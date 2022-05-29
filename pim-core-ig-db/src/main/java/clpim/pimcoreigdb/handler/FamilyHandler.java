@@ -1,21 +1,19 @@
 package clpim.pimcoreigdb.handler;
 
-import clpim.pimcoreigdb.dto.family.FamilyResourceDto;
-import clpim.pimcoreigdb.dto.family.NewFamilyResourceDto;
-import clpim.pimcoreigdb.dto.family.PatchFamilyResourceDto;
-import clpim.pimcoreigdb.dto.family.UpdateFamilyResourceDto;
-import reactor.core.publisher.Flux;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 public interface FamilyHandler {
-    Mono<FamilyResourceDto> create(NewFamilyResourceDto item);
+    @NotNull Mono<ServerResponse> create(final ServerRequest request);
 
-    Mono<FamilyResourceDto> update(String id, Long version, UpdateFamilyResourceDto item);
+    @NotNull Mono<ServerResponse> update(final ServerRequest request);
 
-    Mono<FamilyResourceDto> patch(String id, Long version, PatchFamilyResourceDto item);
+    @NotNull Mono<ServerResponse> patch(final ServerRequest request);
 
-    Flux<FamilyResourceDto> findAll();
+    @NotNull Mono<ServerResponse> findAll(final ServerRequest request);
 
-    Mono<FamilyResourceDto> findById(String id);
+    @NotNull Mono<ServerResponse> findById(final ServerRequest request);
 
 }

@@ -40,4 +40,12 @@ public class SwaggerConfig {
                 .pathsToMatch("/roles/**")
                 .build();
     }
+
+    @Bean
+    public GroupedOpenApi publicApiUserRoleRelation() {
+        return GroupedOpenApi.builder()
+                .group("user-role-relations")
+                .pathsToMatch("/user-role-relations/**")
+                .build();
+    }
 }

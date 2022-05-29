@@ -58,7 +58,9 @@ public interface FamilyMapper {
             item.setStatus(patch.getStatus().orElse(null));
         }
         if (patch.getFamilyGroupId().isPresent()) {
-            item.setFamilyGroupEntity(new FamilyGroupEntity().setId(patch.getFamilyGroupId().orElse(null)));
+            FamilyGroupEntity familyGroupEntity = new FamilyGroupEntity();
+            familyGroupEntity.setId(patch.getFamilyGroupId().orElse(null));
+            item.setFamilyGroupEntity(familyGroupEntity);
         }
         return item;
     }

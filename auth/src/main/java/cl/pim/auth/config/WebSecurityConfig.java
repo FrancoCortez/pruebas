@@ -12,14 +12,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 public class WebSecurityConfig {
-    private final AuthenticationManager authenticationManager;
-    private final SecurityContextRepository securityContextRepository;
-
-    public WebSecurityConfig(final AuthenticationManager authenticationManager, final SecurityContextRepository securityContextRepository) {
-        this.authenticationManager = authenticationManager;
-        this.securityContextRepository = securityContextRepository;
-    }
-
     private static final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
             "/v2/api-docs",
@@ -34,6 +26,13 @@ public class WebSecurityConfig {
             "/swagger-ui/**"
             // other public endpoints of your API may be appended to this array
     };
+    private final AuthenticationManager authenticationManager;
+    private final SecurityContextRepository securityContextRepository;
+
+    public WebSecurityConfig(final AuthenticationManager authenticationManager, final SecurityContextRepository securityContextRepository) {
+        this.authenticationManager = authenticationManager;
+        this.securityContextRepository = securityContextRepository;
+    }
 
     @Bean
     public SecurityWebFilterChain securitygWebFilterChain(final ServerHttpSecurity http) {
@@ -50,6 +49,7 @@ public class WebSecurityConfig {
                 .pathMatchers("/roles/**").permitAll()
                 .pathMatchers("/permission/**").permitAll()
                 .pathMatchers("/role-permission-relation/**").permitAll()
+                .pathMatchers("/user-role-relations/**").permitAll()
                 .pathMatchers(AUTH_WHITELIST).permitAll()
                 .anyExchange().authenticated()
                 .and().build();

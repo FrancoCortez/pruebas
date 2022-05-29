@@ -78,6 +78,7 @@ public class PermissionImplHandler implements PermissionHandler {
         return ServerResponse.ok().body(this.permissionService.findByRoleId(id)
                 .map(this.permissionMapper::toResource), PermissionResourceDto.class);
     }
+
     public @NotNull Mono<ServerResponse> findPermissionNotByRoleId(final ServerRequest request) {
         String id = request.pathVariable("id");
         return ServerResponse.ok().body(this.permissionService.findPermissionNotByRoleId(id)
