@@ -53,6 +53,10 @@ public class UserRoleRelationImplService implements UserRoleRelationService {
         return this.userRoleRelationRepository.deleteAllByRoleId(idsRoles);
     }
 
+    public Flux<UserRoleRelation> findAll() {
+        return this.userRoleRelationRepository.findAll();
+    }
+
     private Mono<Boolean> verifyExistenceRole(String id) {
         return this.roleRepository.existsById(id).handle((exists, sink) -> {
             if (Boolean.FALSE.equals(exists)) {

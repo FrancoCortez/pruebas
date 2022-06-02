@@ -7,4 +7,6 @@ import reactor.core.publisher.Mono;
 
 public interface UserRoleRelationHandler {
     @NotNull Mono<ServerResponse> create(final ServerRequest request);
+
+    @NotNull Mono<ServerResponse> findAll(final ServerRequest request);
 }

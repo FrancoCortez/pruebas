@@ -33,9 +33,10 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class RolePermissionRelationRoute {
 
     private final RolePermissionRelationHandler handler;
+    private static final String BASE = "/role-permission-relation";
 
     @RouterOperations({
-            @RouterOperation(path = "/role-permission-relation", produces = {
+            @RouterOperation(path = BASE, produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST,
                     beanClass = RolePermissionRelationHandler.class,
                     beanMethod = "create",
@@ -44,7 +45,7 @@ public class RolePermissionRelationRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
                     }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = NewRolePermissionRelationResourceDto.class)))
                     )),
-            @RouterOperation(path = "/role-permission-relation/add/permission-to-roles", produces = {
+            @RouterOperation(path = BASE + "/add/permission-to-roles", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST,
                     beanClass = RolePermissionRelationHandler.class,
                     beanMethod = "addPermissionToRole",
@@ -53,7 +54,7 @@ public class RolePermissionRelationRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
                     }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = AddRolePermissionRelationResourceDto.class)))
                     )),
-            @RouterOperation(path = "/role-permission-relation", produces = {
+            @RouterOperation(path = BASE, produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
                     beanClass = RolePermissionRelationHandler.class,
                     beanMethod = "findAll",
@@ -63,9 +64,9 @@ public class RolePermissionRelationRoute {
                     }
                     )),
     })
-    @Bean(name = "role-permission-relation")
+    @Bean(name = BASE)
     public RouterFunction<ServerResponse> router() {
-        return nest(path("/role-permission-relation"),
+        return nest(path(BASE),
                 route(POST("").and(accept(APPLICATION_JSON)).and(contentType(APPLICATION_JSON)), handler::create)
                         .andRoute(POST("/add/permission-to-roles").and(accept(APPLICATION_JSON)).and(contentType(APPLICATION_JSON)), handler::addPermissionToRole)
                         .andRoute(GET(""), handler::findAll)

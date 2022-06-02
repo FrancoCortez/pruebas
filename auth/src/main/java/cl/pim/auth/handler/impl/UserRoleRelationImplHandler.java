@@ -32,4 +32,12 @@ public class UserRoleRelationImplHandler implements UserRoleRelationHandler {
                         )
                 , request, NewUserRoleRelationResourceDto.class);
     }
+
+    public @NotNull Mono<ServerResponse> findAll(final ServerRequest request) {
+        return ServerResponse.ok().body(
+                this.userRoleRelationService.findAll()
+                        .map(this.userRoleRelationMapper::toResource)
+                , UserRoleRelationResourceDto.class
+        );
+    }
 }

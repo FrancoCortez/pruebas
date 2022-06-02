@@ -38,9 +38,10 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class RoleRoute {
 
     private final RoleHandler handler;
+    private static final String BASE = "/roles";
 
     @RouterOperations({
-            @RouterOperation(path = "/roles", produces = {
+            @RouterOperation(path = BASE, produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST,
                     beanClass = RoleHandler.class,
                     beanMethod = "create",
@@ -49,7 +50,7 @@ public class RoleRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
                     }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = NewRoleResourceDto.class)))
                     )),
-            @RouterOperation(path = "/roles/{id}", produces = {
+            @RouterOperation(path = BASE + "/{id}", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.PUT,
                     beanClass = RoleHandler.class,
                     beanMethod = "update",
@@ -59,7 +60,7 @@ public class RoleRoute {
                     }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = UpdateRoleResourceDto.class))),
                             parameters = {@Parameter(in = ParameterIn.PATH, name = "id")}
                     )),
-            @RouterOperation(path = "/roles/{id}", produces = {
+            @RouterOperation(path = BASE + "/{id}", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.DELETE,
                     beanClass = RoleHandler.class,
                     beanMethod = "deleteById",
@@ -68,7 +69,7 @@ public class RoleRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
                     }, parameters = {@Parameter(in = ParameterIn.PATH, name = "id")}
                     )),
-            @RouterOperation(path = "/roles/massive/deleted", produces = {
+            @RouterOperation(path = BASE + "/massive/deleted", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST,
                     beanClass = RoleHandler.class,
                     beanMethod = "deleteMassiveByIds",
@@ -77,7 +78,7 @@ public class RoleRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
                     }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = MassiveDeletedRoleResourceDto.class)))
                     )),
-            @RouterOperation(path = "/roles", produces = {
+            @RouterOperation(path = BASE, produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
                     beanClass = RoleHandler.class,
                     beanMethod = "findAll",
@@ -86,7 +87,7 @@ public class RoleRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
                     }
                     )),
-            @RouterOperation(path = "/roles/{id}", produces = {
+            @RouterOperation(path = BASE + "/{id}", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
                     beanClass = RoleHandler.class,
                     beanMethod = "findById",
@@ -96,9 +97,9 @@ public class RoleRoute {
                     }, parameters = {@Parameter(in = ParameterIn.PATH, name = "id")}
                     )),
     })
-    @Bean(name = "roles")
+    @Bean(name = BASE)
     public RouterFunction<ServerResponse> router() {
-        return nest(path("/roles"),
+        return nest(path(BASE),
                 route(POST("").and(accept(APPLICATION_JSON)).and(contentType(APPLICATION_JSON)), handler::create)
                         .andRoute(PUT("/{id}").and(accept(APPLICATION_JSON)).and(contentType(APPLICATION_JSON)), handler::update)
                         .andRoute(DELETE("/{id}"), handler::deleteById)

@@ -16,4 +16,6 @@ public interface UserRoleRelationService {
     Mono<Void> deleteByRoleId(String id);
 
     Mono<Void> deleteMassiveRoleIds(List<String> id);
+
+    Flux<UserRoleRelation> findAll();
 }

@@ -19,6 +19,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RequestPredicates.contentType;
@@ -52,21 +53,21 @@ public class UserRoleRelationRoute {
 //                            @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
 //                    }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = AddRolePermissionRelationResourceDto.class)))
 //                    )),
-//            @RouterOperation(path = "/role-permission-relation", produces = {
-//                    MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
-//                    beanClass = RolePermissionRelationHandler.class,
-//                    beanMethod = "findAll",
-//                    operation = @Operation(operationId = "findAllRolePermissionRelation", responses = {
-//                            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = RolePermissionRelationResourceDto.class))),
-//                            @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
-//                    }
-//                    )),
+            @RouterOperation(path = BASE, produces = {
+                    MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
+                    beanClass = UserRoleRelationHandler.class,
+                    beanMethod = "findAll",
+                    operation = @Operation(operationId = "findAllRolePermissionRelation", responses = {
+                            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = UserRoleRelationResourceDto.class))),
+                            @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
+                    }
+                    )),
     })
     @Bean(name = "user-role-relations")
     public RouterFunction<ServerResponse> router() {
         return nest(path(BASE),
                 route(POST("").and(accept(APPLICATION_JSON)).and(contentType(APPLICATION_JSON)), handler::create)
-                // .andRoute(GET(""), handler::findAll)
+                        .andRoute(GET(""), handler::findAll)
 
         );
     }

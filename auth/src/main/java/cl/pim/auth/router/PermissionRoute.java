@@ -38,9 +38,10 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class PermissionRoute {
 
     private final PermissionHandler handler;
+    private static final String BASE = "/permission";
 
     @RouterOperations({
-            @RouterOperation(path = "/permission", produces = {
+            @RouterOperation(path = BASE, produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST,
                     beanClass = PermissionHandler.class,
                     beanMethod = "create",
@@ -49,7 +50,7 @@ public class PermissionRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
                     }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = NewPermissionResourceDto.class)))
                     )),
-            @RouterOperation(path = "/permission/{id}", produces = {
+            @RouterOperation(path = BASE + "/{id}", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.PUT,
                     beanClass = PermissionHandler.class,
                     beanMethod = "update",
@@ -59,7 +60,7 @@ public class PermissionRoute {
                     }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = UpdatePermissionResourceDto.class))),
                             parameters = {@Parameter(in = ParameterIn.PATH, name = "id")}
                     )),
-            @RouterOperation(path = "/permission/{id}", produces = {
+            @RouterOperation(path = BASE + "/{id}", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.DELETE,
                     beanClass = PermissionHandler.class,
                     beanMethod = "deleteById",
@@ -68,7 +69,7 @@ public class PermissionRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied"),
                     }, parameters = {@Parameter(in = ParameterIn.PATH, name = "id")}
                     )),
-            @RouterOperation(path = "/permission/massive/deleted", produces = {
+            @RouterOperation(path = BASE + "/massive/deleted", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST,
                     beanClass = PermissionHandler.class,
                     beanMethod = "deleteMassiveByIds",
@@ -77,7 +78,7 @@ public class PermissionRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied"),
                     }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = MassiveDeletedPermissionResourceDto.class)))
                     )),
-            @RouterOperation(path = "/permission", produces = {
+            @RouterOperation(path = BASE, produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
                     beanClass = PermissionHandler.class,
                     beanMethod = "findById",
@@ -86,7 +87,7 @@ public class PermissionRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied"),
                     }
                     )),
-            @RouterOperation(path = "/permission/{id}", produces = {
+            @RouterOperation(path = BASE + "/{id}", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
                     beanClass = PermissionHandler.class,
                     beanMethod = "findAll",
@@ -95,7 +96,7 @@ public class PermissionRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied"),
                     }, parameters = {@Parameter(in = ParameterIn.PATH, name = "id")}
                     )),
-            @RouterOperation(path = "/permission/find-by-role/{id}", produces = {
+            @RouterOperation(path = BASE + "/find-by-role/{id}", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
                     beanClass = PermissionHandler.class,
                     beanMethod = "findByRoleId",
@@ -104,7 +105,7 @@ public class PermissionRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied"),
                     }, parameters = {@Parameter(in = ParameterIn.PATH, name = "id")}
                     )),
-            @RouterOperation(path = "/permission/find-by-not-role/{id}", produces = {
+            @RouterOperation(path = BASE + "/find-by-not-role/{id}", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
                     beanClass = PermissionHandler.class,
                     beanMethod = "findPermissionNotByRoleId",
@@ -114,9 +115,9 @@ public class PermissionRoute {
                     }, parameters = {@Parameter(in = ParameterIn.PATH, name = "id")}
                     )),
     })
-    @Bean(name = "permission")
+    @Bean(name = BASE)
     public RouterFunction<ServerResponse> router() {
-        return nest(path("/permission"),
+        return nest(path(BASE),
                 route(POST("").and(accept(APPLICATION_JSON)).and(contentType(APPLICATION_JSON)), handler::create)
                         .andRoute(PUT("/{id}").and(accept(APPLICATION_JSON)).and(contentType(APPLICATION_JSON)), handler::update)
                         .andRoute(DELETE("/{id}"), handler::deleteById)

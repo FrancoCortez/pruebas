@@ -36,9 +36,10 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class AuthRoute {
 
     private final AuthHandler handler;
+    private static final String BASE = "/auth";
 
     @RouterOperations({
-            @RouterOperation(path = "/auth/login", produces = {
+            @RouterOperation(path = BASE + "/login", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST,
                     beanClass = AuthHandler.class,
                     beanMethod = "login",
@@ -47,7 +48,7 @@ public class AuthRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
                     }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = LoginResourceDto.class)))
                     )),
-            @RouterOperation(path = "/auth", produces = {
+            @RouterOperation(path = BASE, produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.POST,
                     beanClass = AuthHandler.class,
                     beanMethod = "create",
@@ -56,7 +57,7 @@ public class AuthRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied")
                     }, requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = NewUserResourceDto.class)))
                     )),
-            @RouterOperation(path = "/auth/find/user/{id}", produces = {
+            @RouterOperation(path = BASE + "/find/user/{id}", produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
                     beanClass = AuthHandler.class,
                     beanMethod = "findById",
@@ -65,7 +66,7 @@ public class AuthRoute {
                             @ApiResponse(responseCode = "400", description = "Invalid Employee details supplied"),
                     }, parameters = {@Parameter(in = ParameterIn.PATH, name = "id")}
                     )),
-            @RouterOperation(path = "/auth", produces = {
+            @RouterOperation(path = BASE, produces = {
                     MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET,
                     beanClass = AuthHandler.class,
                     beanMethod = "findAll",
@@ -75,9 +76,9 @@ public class AuthRoute {
                     }
                     )),
     })
-    @Bean(name = "auth")
+    @Bean(name = BASE)
     public RouterFunction<ServerResponse> router() {
-        return nest(path("/auth"),
+        return nest(path(BASE),
                 route(POST("/login").and(accept(APPLICATION_JSON)).and(contentType(APPLICATION_JSON)), handler::login)
                         .andRoute(POST("").and(accept(APPLICATION_JSON)).and(contentType(APPLICATION_JSON)), handler::create)
                         .andRoute(GET("/find/user/{id}"), handler::findById)
